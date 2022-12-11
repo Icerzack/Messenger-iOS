@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class LoginViewController: UIViewController {
 
@@ -56,7 +57,7 @@ class LoginViewController: UIViewController {
     }()
     
     private let loginButton: UIButton = {
-        let button = UIButton(type: .system)
+        let button = UIButton(type: .custom)
         button.setTitle("Log in", for: .normal)
         button.backgroundColor = .link
         button.setTitleColor(.white, for: .normal)
@@ -72,6 +73,11 @@ class LoginViewController: UIViewController {
         title = "Log in"
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register", style: .done, target: self, action: #selector(didTapRegister))
+        
+        loginButton.addTarget(self, action: #selector(didTapLogin), for: .touchUpInside)
+        
+        emailField.delegate = self
+        passwordField.delegate = self
         
         view.addSubview(scrollView)
         scrollView.addSubview(imageView)
@@ -99,4 +105,46 @@ class LoginViewController: UIViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
 
+    @objc private func didTapLogin(){
+        emailField.resignFirstResponder()
+        passwordField.resignFirstResponder()
+        
+        guard let email = emailField.text, let password = passwordField.text, !email.isEmpty, !password.isEmpty, password.count >= 6 else {
+            alertUserLoginError()
+            return
+        }
+        
+        FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password) {[weak self] authResult, error in
+            guard let strongSelf = self else {
+                return
+            }
+            guard error == nil, let result = authResult else {
+                print("Error logging in!")
+                return
+            }
+            
+            let user = result.user
+            print("logged in user: \(user)")
+            strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+        }
+        
+    }
+    
+    private func alertUserLoginError(){
+        let alert = UIAlertController(title: "Wooops!", message: "Verify your credentials", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK!", style: .default)
+        alert.addAction(action)
+        present(alert, animated: true)
+    }
+}
+
+extension LoginViewController: UITextFieldDelegate{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == emailField{
+            passwordField.becomeFirstResponder()
+        } else if textField == passwordField{
+            didTapLogin()
+        }
+        return true
+    }
 }
