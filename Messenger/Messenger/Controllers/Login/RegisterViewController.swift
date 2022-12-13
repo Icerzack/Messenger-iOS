@@ -7,9 +7,12 @@
 
 import UIKit
 import FirebaseAuth
+import JGProgressHUD
 
 class RegisterViewController: UIViewController {
 
+    private let spinner = JGProgressHUD(style: .dark)
+    
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "person.circle")
@@ -130,8 +133,11 @@ class RegisterViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         scrollView.frame = view.bounds
+        
         let size = scrollView.width/3
+        
         imageView.frame = CGRect(x: (scrollView.width-size)/2, y: 40, width: size, height: size)
         imageView.layer.cornerRadius = imageView.width/2.0
         
@@ -156,26 +162,47 @@ class RegisterViewController: UIViewController {
             return
         }
         
+        spinner.show(in: view)
+        
         DatabaseManager.shared.userExists(with: email) {[weak self] isExists in
             guard let strongSelf = self else {
                 return
+            }
+            
+            DispatchQueue.main.async {
+                strongSelf.spinner.dismiss(animated: true)
             }
             
             guard !isExists else {
                 strongSelf.alertUserLoginError(message: "This email is already taken")
                 return
             }
-            
-            print(isExists)
-            
+                        
             FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
                 guard error == nil, authResult != nil else {
                     print("Error, try again")
-                    print(error?.localizedDescription)
                     return
                 }
                 
-                DatabaseManager.shared.insertUser(user: ChatUser(firstName: firstName, lastName: lastName, emailAddress: email))
+                let newUser = ChatUser(firstName: firstName, lastName: lastName, emailAddress: email)
+                
+                DatabaseManager.shared.insertUser(user: newUser) { success in
+                    if (success) {
+                        guard let image = strongSelf.imageView.image, let data = image.pngData() else {
+                            return
+                        }
+                        let fileName = newUser.profilePictureFileName
+                        StorageManager.shared.uploadProfilePicture(with: data, fileName: fileName) { result in
+                            switch result {
+                            case .success(let downloadUrl):
+                                UserDefaults.standard.set(downloadUrl, forKey: "profile_picture_url")
+                                print(downloadUrl)
+                            case .failure(let error):
+                                print(error)
+                            }
+                        }
+                    }
+                }
                 
                 strongSelf.navigationController?.dismiss(animated: true, completion: nil)
             }

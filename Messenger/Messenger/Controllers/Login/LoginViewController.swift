@@ -7,9 +7,12 @@
 
 import UIKit
 import FirebaseAuth
+import JGProgressHUD
 
 class LoginViewController: UIViewController {
 
+    private let spinner = JGProgressHUD(style: .dark)
+    
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "logo")
@@ -80,6 +83,7 @@ class LoginViewController: UIViewController {
         passwordField.delegate = self
         
         view.addSubview(scrollView)
+        
         scrollView.addSubview(imageView)
         scrollView.addSubview(emailField)
         scrollView.addSubview(passwordField)
@@ -87,8 +91,12 @@ class LoginViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
         scrollView.frame = view.bounds
+        
         let size = scrollView.width/3
+        
         imageView.frame = CGRect(x: (scrollView.width-size)/2, y: 40, width: size, height: size)
         
         emailField.frame = CGRect(x: 30, y: imageView.bottom+10, width: scrollView.width-60, height: 52)
@@ -114,10 +122,18 @@ class LoginViewController: UIViewController {
             return
         }
         
+        spinner.show(in: view)
+        
         FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password) {[weak self] authResult, error in
             guard let strongSelf = self else {
                 return
             }
+            
+            DispatchQueue.main.async {
+                strongSelf.spinner.dismiss(animated: true)
+
+            }
+            
             guard error == nil, let result = authResult else {
                 print("Error logging in!")
                 return

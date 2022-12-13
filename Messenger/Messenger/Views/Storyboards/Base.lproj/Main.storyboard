@@ -16,20 +16,8 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="wcW-HJ-1UE">
-                                <rect key="frame" x="0.0" y="155" width="393" height="614"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </tableView>
-                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="wcW-HJ-1UE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="DPh-xQ-a5U"/>
-                            <constraint firstItem="wcW-HJ-1UE" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="EDT-Na-K4g"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wcW-HJ-1UE" secondAttribute="trailing" id="eLB-Pp-8gZ"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="wcW-HJ-1UE" secondAttribute="bottom" id="ksb-1K-wie"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Chats" id="g61-cJ-vh1"/>
                 </viewController>
@@ -79,10 +67,25 @@
                     <view key="view" contentMode="scaleToFill" id="H4a-wU-ncA">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="hZi-bB-DrS">
+                                <rect key="frame" x="0.0" y="155" width="393" height="614"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="iLP-ok-vO5"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="hZi-bB-DrS" firstAttribute="leading" secondItem="iLP-ok-vO5" secondAttribute="leading" id="9sX-L4-x7W"/>
+                            <constraint firstItem="hZi-bB-DrS" firstAttribute="top" secondItem="iLP-ok-vO5" secondAttribute="top" id="R8L-wr-qpT"/>
+                            <constraint firstItem="iLP-ok-vO5" firstAttribute="bottom" secondItem="hZi-bB-DrS" secondAttribute="bottom" id="WZs-yt-6CJ"/>
+                            <constraint firstItem="iLP-ok-vO5" firstAttribute="trailing" secondItem="hZi-bB-DrS" secondAttribute="trailing" id="cir-LS-aVl"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Profile" id="Sb3-3E-Ueh"/>
+                    <connections>
+                        <outlet property="tableView" destination="hZi-bB-DrS" id="Kmo-FX-Cvf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J4X-as-Rwz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
