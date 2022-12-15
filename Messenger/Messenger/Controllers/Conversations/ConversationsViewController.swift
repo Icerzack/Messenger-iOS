@@ -76,8 +76,24 @@ class ConversationsViewController: UIViewController {
         let vc = NewConversationViewController()
         let navVC = UINavigationController(rootViewController: vc)
         
+        vc.completion = { [weak self] result in
+            self?.createNewConversation(result: result)
+        }
+        
         present(navVC, animated: true)
         
+    }
+    
+    private func createNewConversation(result: [String:String]){
+        guard let name = result["name"], let email = result["email"] else {
+            return
+        }
+        
+        let vc = ChatViewController(with: email)
+        vc.title = name
+        vc.isNewConversation = true
+        vc.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -108,10 +124,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let vc = ChatViewController()
-        vc.title = "Smith"
-        vc.navigationItem.largeTitleDisplayMode = .never
-        navigationController?.pushViewController(vc, animated: true)
+        
         
     }
 }

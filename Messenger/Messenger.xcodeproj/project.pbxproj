@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A6211BA4294B6A3700016796 /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6211BA3294B6A3700016796 /* ConversationTableViewCell.swift */; };
 		A6549F392948E57E00BB0A12 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6549F382948E57E00BB0A12 /* StorageManager.swift */; };
 		A6549F412948EC3100BB0A12 /* ChatUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6549F402948EC3100BB0A12 /* ChatUser.swift */; };
 		A6974E1A293BA60700A674AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6974E19293BA60700A674AA /* AppDelegate.swift */; };
@@ -31,6 +32,7 @@
 /* Begin PBXFileReference section */
 		2D8A01493832A03B606F33B4 /* Pods-Messenger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Messenger.debug.xcconfig"; path = "Target Support Files/Pods-Messenger/Pods-Messenger.debug.xcconfig"; sourceTree = "<group>"; };
 		310BB582C8A39DD1559EF37F /* Pods-Messenger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Messenger.release.xcconfig"; path = "Target Support Files/Pods-Messenger/Pods-Messenger.release.xcconfig"; sourceTree = "<group>"; };
+		A6211BA3294B6A3700016796 /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
 		A6549F382948E57E00BB0A12 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		A6549F402948EC3100BB0A12 /* ChatUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatUser.swift; sourceTree = "<group>"; };
 		A6974E16293BA60700A674AA /* Messenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Messenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -174,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				A6974E32293BA82400A674AA /* Storyboards */,
+				A6211BA3294B6A3700016796 /* ConversationTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -361,6 +364,7 @@
 				A6A119B12947A65D00448634 /* ChatViewController.swift in Sources */,
 				A6974E38293BA93000A674AA /* PhotoViewerViewController.swift in Sources */,
 				A6549F392948E57E00BB0A12 /* StorageManager.swift in Sources */,
+				A6211BA4294B6A3700016796 /* ConversationTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
